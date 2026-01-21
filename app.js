@@ -1,5 +1,5 @@
 // ======================================================================
-//  MAPEO EXACTO DE TESAUROS  (texto largo que va en la columna "Campo")
+//  MAPEO EXACTO DE ENTRADAS, TESAUROS Y CERTIFICADOS
 // ======================================================================
 
 const MAPEO_TESAUROS = {
@@ -13,26 +13,68 @@ const MAPEO_TESAUROS = {
     'Asistencia taller online "Construcción de documentos inteligentes"': "Taller 03",
     'Asistencia a taller online "Taller de campos personalizados del tesauro"': "Taller 02",
     'Asistencia a taller online "Contextualización y configuración del catálogo"': "Taller 01",
-    'Asistencia taller online "Condición de usuario apoderado"': "Taller 00"
+    'Asistencia taller online "Condición de usuario apoderado"': "Taller 00",
+    "Asistencia Kick Off online Developers (Sí/No)": "GFD KickOff",
+    "Fecha y hora de asistencia a Kick off online Gestiona Developers": "GFD KickOff",
+    "Asiste al taller online 01": "GFD Taller01",
+    "Fecha y hora asistencia taller online 01": "GFD Taller01",
+    "Asiste al taller online 02": "GFD Taller02",
+    "Fecha y hora asistencia taller online 02": "GFD Taller02",
+    "Asiste al taller online 03": "GFD Taller03",
+    "Fecha y hora asistencia taller online 03": "GFD Taller03",
+    "Asiste al taller online 04": "GFD Taller04",
+    "Fecha y hora asistencia taller online 04": "GFD Taller04",
+    "Asiste al taller online 05": "GFD Taller05",
+    "Fecha y hora asistencia taller online 05": "GFD Taller05",
+    "Asiste al taller online 06": "GFD Taller06",
+    "Fecha y hora asistencia taller online 06": "GFD Taller06",
+    "Asistencia Kick Off online Certificación Analiza (Sí/No)": "ADD Kickoff",
+    'Fecha y hora de asistencia a Kick off online de "Gestiona Analiza"': "ADD Kickoff",
+    "Asiste al Taller 01 Introducción y conceptos básicos de Analiza": "ADD Taller01",
+    "Fecha y hora de asistencia a taller 01 del curso Analiza": "ADD Taller01",
+    "Asiste al Taller 02 Edición de expresiones": "ADD Taller02",
+    "Fecha y hora de asistencia a taller 02 del curso Analiza": "ADD Taller02",
+    "Asiste al Taller 03 Preparación evaluación": "ADD Taller03",
+    "Fecha y hora de asistencia a taller 03 del curso Analiza": "ADD Taller03"
 };
 
-
-// ======================================================================
-//  MAPEO EXACTO DE CERTIFICADOS (columna C)
-// ======================================================================
-
 const MAPEO_CERTIFICADOS = {
-    "Taller 10": `Certificado asistencia a taller online 12 - "Analiza. Conceptos básicos y configuración"`,
-    "Taller 09": `Certificado asistencia a taller online 11 - "Búsquedas avanzadas"`,
-    "Taller 08": `Certificado asistencia a taller online 09 - "Circuitos de resolución con gasto"`,
-    "Taller 07": `Certificado asistencia a taller online 08 - "Módulo de diseño de Control Interno"`,
-    "Taller 06": `Certificado asistencia a taller online 07 - "Simplificación administrativa"`,
-    "Taller 05": `Certificado asistencia a taller online 06 - "Configuración de circuitos de resolución plural"`,
-    "Taller 04": `Certificado asistencia a taller online 05 - "Configuración de circuitos de resolución singulares"`,
-    "Taller 03": `Certificado asistencia a taller online 04 - "Construcción de documentos inteligentes"`,
-    "Taller 02": `Certificado asistencia a taller online 03 - "Taller de campos personalizados del tesauro"`,
-    "Taller 01": `Certificado asistencia a taller online 02 - "Contextualización y configuración del catálogo"`,
-    "Taller 00": `Certificado asistencia a taller online 01 - "Condición de usuario apoderado"`
+    "Taller 10": 'Certificado asistencia a taller online 12 - "Analiza. Conceptos básicos y configuración"',
+    "Taller 09": 'Certificado asistencia a taller online 11 - "Búsquedas avanzadas"',
+    "Taller 08": 'Certificado asistencia a taller online 09 - "Circuitos de resolución con gasto"',
+    "Taller 07": 'Certificado asistencia a taller online 08 - "Módulo de diseño de Control Interno"',
+    "Taller 06": 'Certificado asistencia a taller online 07 - "Simplificación administrativa"',
+    "Taller 05": 'Certificado asistencia a taller online 06 - "Configuración de circuitos de resolución plural"',
+    "Taller 04": 'Certificado asistencia a taller online 05 - "Configuración de circuitos de resolución singulares"',
+    "Taller 03": 'Certificado asistencia a taller online 04 - "Construcción de documentos inteligentes"',
+    "Taller 02": 'Certificado asistencia a taller online 03 - "Taller de campos personalizados del tesauro"',
+    "Taller 01": 'Certificado asistencia a taller online 02 - "Contextualización y configuración del catálogo"',
+    "Taller 00": 'Certificado asistencia a taller online 01 - "Condición de usuario apoderado"',
+    "GFD KickOff": "Certificado de asistencia a sesión online KickOff Developers",
+    "GFD Taller01": 'Certificado asistencia a taller online 01 - "Autorización de un addon, listados paginados y filtrados, carga Archivos-Bus de Eventos y Conectores Externos"',
+    "GFD Taller02": 'Certificado asistencia a taller online 02 - "Bus de Eventos y Conectores Externos"',
+    "GFD Taller03": 'Certificado asistencia a taller online 03 - "Terceros"',
+    "GFD Taller04": 'Certificado asistencia a taller online 04 - "Registro Electrónico"',
+    "GFD Taller05": 'Certificado asistencia a taller online 05 - "Expedientes"',
+    "GFD Taller06": 'Certificado asistencia a taller online 06 - "Tramitación"',
+    "ADD Kickoff": "Certificado de asistencia a sesión online KickOff Analiza",
+    "ADD Taller01": "Certificado asistencia a Taller 01: Representación de la información y configuración básica",
+    "ADD Taller02": "Certificado asistencia a Taller 02: Configuración de dimensiones personalizadas y operaciones con fechas",
+    "ADD Taller03": "Certificado asistencia a Taller 03 Funciones avanzadas y variables"
+};
+
+const MAPEO_TIPOS_TESAUROS = {
+    "Asistencia Kick Off online Developers (Sí/No)": "Sí/No",
+    "Asiste al taller online 01": "Sí/No",
+    "Asiste al taller online 02": "Sí/No",
+    "Asiste al taller online 03": "Sí/No",
+    "Asiste al taller online 04": "Sí/No",
+    "Asiste al taller online 05": "Sí/No",
+    "Asiste al taller online 06": "Sí/No",
+    "Asistencia Kick Off online Certificación Analiza (Sí/No)": "Sí/No",
+    "Asiste al Taller 01 Introducción y conceptos básicos de Analiza": "Sí/No",
+    "Asiste al Taller 02 Edición de expresiones": "Sí/No",
+    "Asiste al Taller 03 Preparación evaluación": "Sí/No"
 };
 
 
@@ -86,67 +128,63 @@ function procesar() {
 
     datosOrigen.forEach(row => {
 
-        // === Columna G del origen (Taller XX) ===
-        let codigoTaller = row["Taller"];
-        if (!codigoTaller) return;
-
-        codigoTaller = codigoTaller.trim();  // Ej: "Taller 10"
-
-
-        // === Buscar el tesauro correcto ===
-        const entradaTesauro = Object.entries(MAPEO_TESAUROS)
-            .find(([texto, codigo]) => codigo === codigoTaller);
-
-        if (!entradaTesauro) {
-            console.warn("Taller NO encontrado:", codigoTaller);
-            return;
-        }
-
-        const tesauroTexto = entradaTesauro[0];
-        const tesauroSN = tesauroTexto + " (Sí/No)";
-
-
-        // === CERTIFICADO (columna C) ===
-        const certificadoTexto = MAPEO_CERTIFICADOS[codigoTaller];
-
+        // === Columna de entrada ===
+        const nombreInput = row["Nombre input"] || row["Nombre Input"];
+        const nombreTaller = row["Taller"];
+        const codigoEntrada = (nombreInput || nombreTaller);
 
         // === Valores origen ===
         const dni = row["InteresadoIdentificador"];
         const exp = row["ExpedienteCodigo"];
         const fecha = row["Fecha -Hora"];
-        const nombre = row["Tercero"];
 
+        if (!codigoEntrada) return;
 
-// ==================================================
-//  FILA 1 — Tipo Fecha (Taller 08 → Texto)
-// ==================================================
-datosSalida.push({
-    NombreEntidad: "ESPUBLICO SERVICIOS PARA LA ADMINISTRACIÓN",
-    CódigoExpediente: exp,
-    NombreTarea: certificadoTexto,
-    CrearTarea: "Sí",
-    NombreCampoCastellano: tesauroTexto,
-    TipoCampoTesauro: (codigoTaller === "Taller 08" ? "Texto" : "Fecha"),
-    ValorCampo: fecha,
-    ValorCampoAdicional: "",
-    NIFTercero: dni
-});
+        const codigo = codigoEntrada.trim();
+        const tesauros = Object.entries(MAPEO_TESAUROS)
+            .filter(([, codigoTesauro]) => codigoTesauro === codigo);
 
+        if (tesauros.length === 0) {
+            console.warn("Entrada NO encontrada:", codigo);
+            return;
+        }
 
-// ==================================================
-//  FILA 2 — Tipo Sí/No
-// ==================================================
-datosSalida.push({
-    NombreEntidad: "ESPUBLICO SERVICIOS PARA LA ADMINISTRACIÓN",
-    CódigoExpediente: exp,
-    NombreTarea: certificadoTexto,
-    CrearTarea: "Sí",
-    NombreCampoCastellano: tesauroSN,
-    TipoCampoTesauro: "Sí/No",
-    ValorCampo: "Sí",
-    ValorCampoAdicional: "",
-    NIFTercero: dni
-});
+        const certificadoTexto = MAPEO_CERTIFICADOS[codigo];
+
+        tesauros.forEach(([tesauroTexto]) => {
+            const tipoTesauro = MAPEO_TIPOS_TESAUROS[tesauroTexto]
+                || (tesauroTexto.includes("(Sí/No)") ? "Sí/No" : (codigo === "Taller 08" ? "Texto" : "Fecha"));
+            const valorCampo = tipoTesauro === "Sí/No" ? "Sí" : fecha;
+
+            datosSalida.push({
+                NombreEntidad: "ESPUBLICO SERVICIOS PARA LA ADMINISTRACIÓN",
+                CódigoExpediente: exp,
+                NombreTarea: certificadoTexto,
+                CrearTarea: "Sí",
+                NombreCampoCastellano: tesauroTexto,
+                TipoCampoTesauro: tipoTesauro,
+                ValorCampo: valorCampo,
+                ValorCampoAdicional: "",
+                NIFTercero: dni
+            });
+        });
+
+        if (nombreTaller && !nombreInput) {
+            const tesauroTexto = tesauros[0][0];
+            const tesauroSN = `${tesauroTexto} (Sí/No)`;
+
+            datosSalida.push({
+                NombreEntidad: "ESPUBLICO SERVICIOS PARA LA ADMINISTRACIÓN",
+                CódigoExpediente: exp,
+                NombreTarea: certificadoTexto,
+                CrearTarea: "Sí",
+                NombreCampoCastellano: tesauroSN,
+                TipoCampoTesauro: "Sí/No",
+                ValorCampo: "Sí",
+                ValorCampoAdicional: "",
+                NIFTercero: dni
+            });
+        }
     });
 
     mostrarTabla();
