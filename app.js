@@ -1,5 +1,5 @@
 // ======================================================================
-//  MAPEO EXACTO DE TESAUROS  (texto largo que va en la columna "Campo")
+//  MAPEO TESAUROS — MODO ANTIGUO (NO TOCAR)
 // ======================================================================
 
 const MAPEO_TESAUROS = {
@@ -16,11 +16,6 @@ const MAPEO_TESAUROS = {
     'Asistencia taller online "Condición de usuario apoderado"': "Taller 00"
 };
 
-
-// ======================================================================
-//  MAPEO EXACTO DE CERTIFICADOS (columna C)
-// ======================================================================
-
 const MAPEO_CERTIFICADOS = {
     "Taller 10": `Certificado asistencia a taller online 12 - "Analiza. Conceptos básicos y configuración"`,
     "Taller 09": `Certificado asistencia a taller online 11 - "Búsquedas avanzadas"`,
@@ -35,6 +30,26 @@ const MAPEO_CERTIFICADOS = {
     "Taller 00": `Certificado asistencia a taller online 01 - "Condición de usuario apoderado"`
 };
 
+// ======================================================================
+//  MAPEO NUEVO — GFD / ADD  (NORMALIZADO)
+// ======================================================================
+
+const MAPEO_INPUT_TALLERES = {
+    "gfd kickoff": {
+        certificado: "Certificado de asistencia a sesión online KickOff Developers",
+        campos: [
+            { nombre: "Asistencia Kick Off online Developers (Sí/No)", tipo: "Sí/No" },
+            { nombre: "Fecha y hora de asistencia a Kick off online Gestiona Developers", tipo: "Fecha" }
+        ]
+    },
+    "add kickoff": {
+        certificado: "Certificado de asistencia a sesión online KickOff Analiza",
+        campos: [
+            { nombre: "Asistencia Kick Off online Certificación Analiza (Sí/No)", tipo: "Sí/No" },
+            { nombre: "Fecha y hora de asistencia a Kick off online de \"Gestiona Analiza\"", tipo: "Fecha" }
+        ]
+    }
+};
 
 // ======================================================================
 //  VARIABLES
@@ -43,9 +58,8 @@ const MAPEO_CERTIFICADOS = {
 let datosOrigen = [];
 let datosSalida = [];
 
-
 // ======================================================================
-//  LEER N EXCELS
+//  LEER EXCEL
 // ======================================================================
 
 document.getElementById("inputFile").addEventListener("change", async (e) => {
@@ -53,32 +67,30 @@ document.getElementById("inputFile").addEventListener("change", async (e) => {
     datosOrigen = [];
 
     for (const file of files) {
-        const content = await file.arrayBuffer();
-        const workbook = XLSX.read(content, { type: "array" });
-        const sheet = workbook.Sheets[workbook.SheetNames[0]];
-        const json = XLSX.utils.sheet_to_json(sheet);
+        const buffer = await file.arrayBuffer();
+        const wb = XLSX.read(buffer, { type: "array" });
+        const ws = wb.Sheets[wb.SheetNames[0]];
+        const json = XLSX.utils.sheet_to_json(ws);
         datosOrigen.push(...json);
     }
 
-    alert(`Se han cargado ${files.length} archivo(s). Total filas: ${datosOrigen.length}`);
+    alert(`Cargadas ${datosOrigen.length} filas`);
 });
 
-
 // ======================================================================
-//  PROCESAR TODO
+//  BOTÓN PROCESAR
 // ======================================================================
 
 document.getElementById("btnProcesar").onclick = () => {
     if (datosOrigen.length === 0) {
-        alert("Primero sube uno o varios archivos Excel.");
+        alert("Primero carga un Excel");
         return;
     }
     procesar();
 };
 
-
 // ======================================================================
-//  TRANSFORMAR 1 FILA ORIGEN → 2 FILAS SALIDA (A–G)
+//  PROCESAR
 // ======================================================================
 
 function procesar() {
@@ -86,75 +98,82 @@ function procesar() {
 
     datosOrigen.forEach(row => {
 
-        // === Columna G del origen (Taller XX) ===
-        let codigoTaller = row["Taller"];
-        if (!codigoTaller) return;
+        if (!row["Taller"]) return;
 
-        codigoTaller = codigoTaller.trim();  // Ej: "Taller 10"
+        const valorTallerRaw = row["Taller"].toString().trim();
+        const valorTallerNorm = valorTallerRaw.toLowerCase();
 
-
-        // === Buscar el tesauro correcto ===
-        const entradaTesauro = Object.entries(MAPEO_TESAUROS)
-            .find(([texto, codigo]) => codigo === codigoTaller);
-
-        if (!entradaTesauro) {
-            console.warn("Taller NO encontrado:", codigoTaller);
-            return;
-        }
-
-        const tesauroTexto = entradaTesauro[0];
-        const tesauroSN = tesauroTexto + " (Sí/No)";
-
-
-        // === CERTIFICADO (columna C) ===
-        const certificadoTexto = MAPEO_CERTIFICADOS[codigoTaller];
-
-
-        // === Valores origen ===
         const dni = row["InteresadoIdentificador"];
         const exp = row["ExpedienteCodigo"];
         const fecha = row["Fecha -Hora"];
-        const nombre = row["Tercero"];
 
+        // ==================================================
+        //  MODO NUEVO (GFD / ADD)
+        // ==================================================
+        if (MAPEO_INPUT_TALLERES[valorTallerNorm]) {
 
-// ==================================================
-//  FILA 1 — Tipo Fecha (Taller 08 → Texto)
-// ==================================================
-datosSalida.push({
-    NombreEntidad: "ESPUBLICO SERVICIOS PARA LA ADMINISTRACIÓN",
-    CódigoExpediente: exp,
-    NombreTarea: certificadoTexto,
-    CrearTarea: "Sí",
-    NombreCampoCastellano: tesauroTexto,
-    TipoCampoTesauro: (codigoTaller === "Taller 08" ? "Texto" : "Fecha"),
-    ValorCampo: fecha,
-    ValorCampoAdicional: "",
-    NIFTercero: dni
-});
+            const cfg = MAPEO_INPUT_TALLERES[valorTallerNorm];
 
+            cfg.campos.forEach(campo => {
+                datosSalida.push({
+                    NombreEntidad: "ESPUBLICO SERVICIOS PARA LA ADMINISTRACIÓN",
+                    CódigoExpediente: exp,
+                    NombreTarea: cfg.certificado,
+                    CrearTarea: "Sí",
+                    NombreCampoCastellano: campo.nombre,
+                    TipoCampoTesauro: campo.tipo,
+                    ValorCampo: campo.tipo === "Sí/No" ? "Sí" : fecha,
+                    ValorCampoAdicional: "",
+                    NIFTercero: dni
+                });
+            });
 
-// ==================================================
-//  FILA 2 — Tipo Sí/No
-// ==================================================
-datosSalida.push({
-    NombreEntidad: "ESPUBLICO SERVICIOS PARA LA ADMINISTRACIÓN",
-    CódigoExpediente: exp,
-    NombreTarea: certificadoTexto,
-    CrearTarea: "Sí",
-    NombreCampoCastellano: tesauroSN,
-    TipoCampoTesauro: "Sí/No",
-    ValorCampo: "Sí",
-    ValorCampoAdicional: "",
-    NIFTercero: dni
-});
+            return;
+        }
+
+        // ==================================================
+        //  MODO ANTIGUO (Taller XX)
+        // ==================================================
+
+        const entradaTesauro = Object.entries(MAPEO_TESAUROS)
+            .find(([_, codigo]) => codigo === valorTallerRaw);
+
+        if (!entradaTesauro) return;
+
+        const tesauroTexto = entradaTesauro[0];
+        const tesauroSN = tesauroTexto + " (Sí/No)";
+        const certificadoTexto = MAPEO_CERTIFICADOS[valorTallerRaw];
+
+        datosSalida.push({
+            NombreEntidad: "ESPUBLICO SERVICIOS PARA LA ADMINISTRACIÓN",
+            CódigoExpediente: exp,
+            NombreTarea: certificadoTexto,
+            CrearTarea: "Sí",
+            NombreCampoCastellano: tesauroTexto,
+            TipoCampoTesauro: "Fecha",
+            ValorCampo: fecha,
+            ValorCampoAdicional: "",
+            NIFTercero: dni
+        });
+
+        datosSalida.push({
+            NombreEntidad: "ESPUBLICO SERVICIOS PARA LA ADMINISTRACIÓN",
+            CódigoExpediente: exp,
+            NombreTarea: certificadoTexto,
+            CrearTarea: "Sí",
+            NombreCampoCastellano: tesauroSN,
+            TipoCampoTesauro: "Sí/No",
+            ValorCampo: "Sí",
+            ValorCampoAdicional: "",
+            NIFTercero: dni
+        });
     });
 
     mostrarTabla();
 }
 
-
 // ======================================================================
-//  MOSTRAR TABLA EN HTML
+//  MOSTRAR TABLA
 // ======================================================================
 
 function mostrarTabla() {
@@ -162,42 +181,34 @@ function mostrarTabla() {
     div.innerHTML = "";
 
     if (datosSalida.length === 0) {
-        div.innerHTML = "<p>No hay datos procesados.</p>";
+        div.innerHTML = "<p>No hay datos procesados</p>";
         return;
     }
 
     const tabla = document.createElement("table");
     const cols = Object.keys(datosSalida[0]);
 
-    let thead = "<tr>";
-    cols.forEach(c => thead += `<th>${c}</th>`);
-    thead += "</tr>";
+    tabla.innerHTML =
+        "<tr>" + cols.map(c => `<th>${c}</th>`).join("") + "</tr>" +
+        datosSalida.map(r =>
+            "<tr>" + cols.map(c => `<td>${r[c]}</td>`).join("") + "</tr>"
+        ).join("");
 
-    let tbody = "";
-    datosSalida.forEach(r => {
-        tbody += "<tr>";
-        cols.forEach(c => tbody += `<td>${r[c]}</td>`);
-        tbody += "</tr>";
-    });
-
-    tabla.innerHTML = thead + tbody;
     div.appendChild(tabla);
 }
 
-
 // ======================================================================
-//  EXPORTAR XLSX FINAL
+//  DESCARGAR XLSX
 // ======================================================================
 
 document.getElementById("btnDescargar").onclick = () => {
     if (datosSalida.length === 0) {
-        alert("Nada que descargar.");
+        alert("Nada que descargar");
         return;
     }
 
     const ws = XLSX.utils.json_to_sheet(datosSalida);
     const wb = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, "Salida");
-
     XLSX.writeFile(wb, "Salida.xlsx");
 };
