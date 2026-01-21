@@ -8,28 +8,226 @@
 <script src="app.js" defer></script>
 
 <style>
- body { font-family: Arial; margin: 30px; background:#fafafa; }
- h2 { margin-bottom: 15px; }
- input, button { margin: 10px 0; }
- button { padding: 10px 20px; cursor: pointer; }
- table { border-collapse: collapse; margin-top: 20px; width: 100%; background:white; }
- th, td { border: 1px solid #ccc; padding: 6px; font-size: 14px; }
- th { background:#eee; }
+    :root {
+        color-scheme: light;
+        --bg: #f5f7fb;
+        --card: #ffffff;
+        --text: #1f2937;
+        --muted: #6b7280;
+        --accent: #2563eb;
+        --accent-dark: #1e40af;
+        --border: #e5e7eb;
+        --shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+    }
+
+    * {
+        box-sizing: border-box;
+        font-family: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+        margin: 0;
+        min-height: 100vh;
+        background: linear-gradient(180deg, #eef2ff 0%, var(--bg) 35%, #f8fafc 100%);
+        color: var(--text);
+    }
+
+    .app {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 48px 24px 64px;
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+    }
+
+    .app__header {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 16px;
+    }
+
+    .app__header h1 {
+        font-size: 2.2rem;
+        margin: 0 0 8px;
+    }
+
+    .app__subtitle {
+        margin: 0;
+        color: var(--muted);
+        font-size: 1rem;
+    }
+
+    .app__version {
+        background: #e0e7ff;
+        color: #3730a3;
+        font-weight: 600;
+        padding: 6px 14px;
+        border-radius: 999px;
+        font-size: 0.9rem;
+        align-self: center;
+    }
+
+    .card {
+        background: var(--card);
+        border-radius: 16px;
+        padding: 24px;
+        box-shadow: var(--shadow);
+        border: 1px solid rgba(226, 232, 240, 0.9);
+    }
+
+    .file-upload {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        padding: 14px 20px;
+        border: 1px dashed #c7d2fe;
+        border-radius: 12px;
+        color: var(--accent-dark);
+        font-weight: 600;
+        cursor: pointer;
+        background: #eef2ff;
+        transition: border 0.2s ease, background 0.2s ease;
+    }
+
+    .file-upload:hover {
+        border-color: var(--accent);
+        background: #e0e7ff;
+    }
+
+    .file-upload input {
+        display: none;
+    }
+
+    .hint {
+        margin: 12px 0 0;
+        color: var(--muted);
+        font-size: 0.95rem;
+    }
+
+    .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 20px;
+    }
+
+    button {
+        border: none;
+        padding: 12px 20px;
+        border-radius: 10px;
+        cursor: pointer;
+        font-weight: 600;
+        font-size: 0.95rem;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    button:active {
+        transform: scale(0.98);
+    }
+
+    .btn-primary {
+        background: var(--accent);
+        color: white;
+        box-shadow: 0 6px 16px rgba(37, 99, 235, 0.25);
+    }
+
+    .btn-primary:hover {
+        background: var(--accent-dark);
+    }
+
+    .btn-secondary {
+        background: #e2e8f0;
+        color: #0f172a;
+    }
+
+    .btn-secondary:hover {
+        background: #cbd5f5;
+    }
+
+    .results h2 {
+        margin-top: 0;
+        font-size: 1.25rem;
+    }
+
+    .table-wrapper {
+        width: 100%;
+        overflow-x: auto;
+    }
+
+    table {
+        border-collapse: collapse;
+        margin-top: 16px;
+        width: 100%;
+        background: white;
+        font-size: 0.9rem;
+    }
+
+    th, td {
+        border-bottom: 1px solid var(--border);
+        padding: 10px 12px;
+        text-align: left;
+        vertical-align: top;
+    }
+
+    th {
+        background: #f1f5f9;
+        font-weight: 600;
+        position: sticky;
+        top: 0;
+        z-index: 1;
+    }
+
+    @media (max-width: 720px) {
+        .app__header {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .actions {
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        button {
+            width: 100%;
+        }
+    }
 </style>
 
 </head>
 
 <body>
 
-<h2>Transformador de Talleres (v1.2)</h2>
+<div class="app">
+    <header class="app__header">
+        <div>
+            <h1>Transformador de Talleres</h1>
+            <p class="app__subtitle">Convierte listados de asistencia en certificados y campos tesauro en segundos.</p>
+        </div>
+        <span class="app__version">v1.3</span>
+    </header>
 
-<input type="file" id="inputFile" accept=".xlsx" multiple>
-<br>
-<button id="btnProcesar">Procesar</button>
-<button id="btnDescargar">Descargar Excel</button>
-<button id="btnDescargarCsv">Descargar CSV (UTF-8)</button>
+    <section class="card">
+        <label class="file-upload">
+            <input type="file" id="inputFile" accept=".xlsx" multiple>
+            <span>Seleccionar archivos .xlsx</span>
+        </label>
+        <p class="hint">Puedes cargar varios archivos al mismo tiempo para consolidar la información.</p>
 
-<div id="resultado"></div>
+        <div class="actions">
+            <button id="btnProcesar" class="btn-primary">Procesar</button>
+            <button id="btnDescargar" class="btn-secondary">Descargar Excel</button>
+            <button id="btnDescargarCsv" class="btn-secondary">Descargar CSV (UTF-8)</button>
+        </div>
+    </section>
+
+    <section class="card results">
+        <h2>Resultado</h2>
+        <div id="resultado" class="table-wrapper"></div>
+    </section>
+</div>
 
 </body>
 </html>
