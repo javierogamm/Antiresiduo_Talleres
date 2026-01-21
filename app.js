@@ -212,3 +212,27 @@ document.getElementById("btnDescargar").onclick = () => {
     XLSX.utils.book_append_sheet(wb, ws, "Salida");
     XLSX.writeFile(wb, "Salida.xlsx");
 };
+
+// ======================================================================
+//  DESCARGAR CSV UTF-8
+// ======================================================================
+
+document.getElementById("btnDescargarCsv").onclick = () => {
+    if (datosSalida.length === 0) {
+        alert("Nada que descargar");
+        return;
+    }
+
+    const ws = XLSX.utils.json_to_sheet(datosSalida);
+    const csv = XLSX.utils.sheet_to_csv(ws);
+    const csvConBOM = "\uFEFF" + csv;
+    const blob = new Blob([csvConBOM], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const enlace = document.createElement("a");
+    enlace.href = url;
+    enlace.download = "Salida.csv";
+    document.body.appendChild(enlace);
+    enlace.click();
+    document.body.removeChild(enlace);
+    URL.revokeObjectURL(url);
+};
