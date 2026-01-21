@@ -223,8 +223,14 @@ document.getElementById("btnDescargarCsv").onclick = () => {
         return;
     }
 
-    const ws = XLSX.utils.json_to_sheet(datosSalida);
-    const csv = XLSX.utils.sheet_to_csv(ws);
+    const columnas = Object.keys(datosSalida[0]);
+    const filas = [
+        columnas.join(","),
+        ...datosSalida.map(row =>
+            columnas.map(col => `${row[col] ?? ""}`).join(",")
+        )
+    ];
+    const csv = filas.join("\n");
     const csvConBOM = "\uFEFF" + csv;
     const blob = new Blob([csvConBOM], { type: "text/csv;charset=utf-8;" });
     const url = URL.createObjectURL(blob);
