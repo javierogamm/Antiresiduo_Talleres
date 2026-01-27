@@ -224,13 +224,26 @@ document.getElementById("btnDescargarCsv").onclick = () => {
     }
 
     const columnas = Object.keys(datosSalida[0]);
+    const separador = ";";
+    const saltoLinea = "\r\n";
+    const escaparValor = (valor) => {
+        const texto = valor ?? "";
+        const textoStr = texto.toString();
+        const necesitaComillas = textoStr.includes(separador) ||
+            textoStr.includes('"') ||
+            textoStr.includes("\n") ||
+            textoStr.includes("\r");
+        const textoEscapado = textoStr.replace(/"/g, '""');
+        return necesitaComillas ? `"${textoEscapado}"` : textoEscapado;
+    };
+
     const filas = [
-        columnas.join(","),
+        columnas.map(escaparValor).join(separador),
         ...datosSalida.map(row =>
-            columnas.map(col => `${row[col] ?? ""}`).join(",")
+            columnas.map(col => escaparValor(row[col])).join(separador)
         )
     ];
-    const csv = filas.join("\n");
+    const csv = filas.join(saltoLinea);
     const csvConBOM = "\uFEFF" + csv;
     const blob = new Blob([csvConBOM], { type: "text/csv;charset=utf-8;" });
     const url = URL.createObjectURL(blob);
