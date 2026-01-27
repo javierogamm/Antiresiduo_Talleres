@@ -223,7 +223,17 @@ document.getElementById("btnDescargarCsv").onclick = () => {
         return;
     }
 
-    const columnas = Object.keys(datosSalida[0]);
+    const columnasCsv = [
+        { key: "NombreEntidad", label: "Nombre entidad" },
+        { key: "CódigoExpediente", label: "Código expediente" },
+        { key: "NombreTarea", label: "Nombre tarea" },
+        { key: "CrearTarea", label: "Crear tarea" },
+        { key: "NombreCampoCastellano", label: "Nombre campo castellano" },
+        { key: "TipoCampoTesauro", label: "Tipo campo tesauro" },
+        { key: "ValorCampo", label: "Valor campo" },
+        { key: "ValorCampoAdicional", label: "Valor campo adicional" },
+        { key: "NIFTercero", label: "NIF Tercero" }
+    ];
     const separador = ";";
     const saltoLinea = "\r\n";
     const escaparValor = (valor) => {
@@ -238,9 +248,9 @@ document.getElementById("btnDescargarCsv").onclick = () => {
     };
 
     const filas = [
-        columnas.map(escaparValor).join(separador),
+        columnasCsv.map(col => escaparValor(col.label)).join(separador),
         ...datosSalida.map(row =>
-            columnas.map(col => escaparValor(row[col])).join(separador)
+            columnasCsv.map(col => escaparValor(row[col.key])).join(separador)
         )
     ];
     const csv = filas.join(saltoLinea);
