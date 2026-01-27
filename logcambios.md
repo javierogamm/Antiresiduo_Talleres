@@ -1,5 +1,9 @@
 # Log de cambios
 
+## v1.5
+- Se ajustó el encabezado del CSV UTF-8 para respetar espacios y mayúsculas requeridos.
+- Se actualizó la versión mostrada en la interfaz.
+
 ## v1.4
 - Se ajustó la exportación CSV para usar separador de punto y coma, salto de línea CRLF y escape de valores para visualizar columnas correctamente en Excel.
 - Se actualizó la versión mostrada en la interfaz.
