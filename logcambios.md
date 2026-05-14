@@ -1,5 +1,10 @@
 # Log de cambios
 
+## v1.6
+- Se incorporó el mapeo completo de entradas de talleres AGG, ADD y GFD al nombre de tarea requerido para la salida CSV.
+- Se consolidó el tipo de campo tesauro de la salida como `Texto` para todos los registros generados.
+- Se actualizó la versión mostrada en la interfaz.
+
 ## v1.5
 - Se ajustó el encabezado del CSV UTF-8 para respetar espacios y mayúsculas requeridos.
 - Se actualizó la versión mostrada en la interfaz.
