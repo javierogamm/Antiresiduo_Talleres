@@ -53,22 +53,22 @@ const MAPEO_NOMBRE_TAREA_POR_PROGRAMA = {
         "taller 10": `Certificado asistencia a taller online 10 - "Búsquedas avanzadas"`,
         "taller 11": `Certificado asistencia a taller online 11 - "Analiza. Conceptos básicos y configuración"`
     },
-    ADD: {
-        "add kickoff": "Certificado de asistencia a sesión online KickOff Analiza",
-        "add taller01": "Certificado asistencia a Taller 01: Representación de la información y configuración básica",
-        "add taller02": "Certificado asistencia a Taller 02: Configuración de dimensiones personalizadas y operaciones con fechas",
-        "add taller03": "Certificado asistencia a Taller 03 Funciones avanzadas y variables"
+    CAZ: {
+        "kickoff": "Certificado de asistencia a sesión online KickOff Analiza",
+        "taller 01": "Certificado asistencia a Taller 01: Representación de la información y configuración básica",
+        "taller 02": "Certificado asistencia a Taller 02: Configuración de dimensiones personalizadas y operaciones con fechas",
+        "taller 03": "Certificado asistencia a Taller 03 Funciones avanzadas y variables"
     },
     GFD: {
-        "gfd kickoff": "Certificado de asistencia a sesión online KickOff Developers",
-        "gfd taller01": `Certificado asistencia a taller online 01 - "Autorización + Creación Expediente"`,
-        "gfd taller02": `Certificado asistencia a taller online 02 - "Gestiona Code y Tramitación reglada"`,
-        "gfd taller03": `Certificado asistencia a taller online 03 - "Carga de archivos + Gestión de expediente"`,
-        "gfd taller04": `Certificado asistencia a taller online 04 - "Terceros"`,
-        "gfd taller05": `Certificado asistencia a taller online 05 - "Registro de entradas + Listado y paginado"`,
-        "gfd taller06": `Certificado asistencia a taller online 06 - "Tramitación y registro de salida"`,
-        "gfd taller07": `Certificado asistencia a taller online 07 - "Bus de Eventos y Conector externo"`,
-        "gfd taller08": `Certificado asistencia a taller online 08 - "Operaciones externas"`
+        "kickoff": "Certificado de asistencia a sesión online KickOff Developers",
+        "taller 01": `Certificado asistencia a taller online 01 - "Autorización + Creación Expediente"`,
+        "taller 02": `Certificado asistencia a taller online 02 - "Gestiona Code y Tramitación reglada"`,
+        "taller 03": `Certificado asistencia a taller online 03 - "Carga de archivos + Gestión de expediente"`,
+        "taller 04": `Certificado asistencia a taller online 04 - "Terceros"`,
+        "taller 05": `Certificado asistencia a taller online 05 - "Registro de entradas + Listado y paginado"`,
+        "taller 06": `Certificado asistencia a taller online 06 - "Tramitación y registro de salida"`,
+        "taller 07": `Certificado asistencia a taller online 07 - "Bus de Eventos y Conector externo"`,
+        "taller 08": `Certificado asistencia a taller online 08 - "Operaciones externas"`
     }
 };
 
@@ -223,7 +223,7 @@ function procesar() {
         const fecha = row["Fecha -Hora"];
 
         // ==================================================
-        //  MODO POR PROGRAMA (GFD / ADD / CAG)
+        //  MODO POR PROGRAMA (CAG / CAZ / GFD)
         // ==================================================
         if (mapeoPrograma[valorTallerNorm]) {
 

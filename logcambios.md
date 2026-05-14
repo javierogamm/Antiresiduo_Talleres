@@ -1,5 +1,11 @@
 # Log de cambios
 
+## v1.8
+- Se actualizaron los inputs normalizados de talleres para los programas `CAG`, `CAZ` y `GFD` según la tabla consolidada.
+- Se sustituyó el programa `ADD` por `CAZ` para la selección y mapeo de certificados de Analiza.
+- Se ajustaron los inputs de `GFD` para aceptar `Kickoff` y `Taller 01` a `Taller 08` sin prefijo del programa.
+- Se actualizó la versión mostrada en la interfaz.
+
 ## v1.7
 - Se añadió la selección obligatoria del programa de certificación al cargar archivos `.xlsx`, con opciones `GFD`, `ADD` y `CAG`.
 - Se separaron los mapeos de talleres por programa para aplicar el nombre de tarea correspondiente según la selección realizada.
