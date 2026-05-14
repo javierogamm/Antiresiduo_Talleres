@@ -1,5 +1,9 @@
 # Log de cambios
 
+## v1.10
+- Se interpreta automáticamente la primera fila de la columna C como `ExpedienteCodigo` cuando el encabezado viene vacío en el `.xlsx` de entrada.
+- Se actualizó la versión mostrada en la interfaz.
+
 ## v1.9
 - Se sustituyó la petición manual del programa por un selector desplegable con las opciones `CAAG`, `GFD` y `CAZ` antes de cargar archivos `.xlsx`.
 - Se renombró el programa `CAG` a `CAAG` en el mapeo de certificaciones.
