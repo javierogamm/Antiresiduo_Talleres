@@ -120,6 +120,16 @@ function obtenerCamposFaltantes(row) {
     return CAMPOS_OBLIGATORIOS_INPUT.filter(campo => !tieneDato(row[campo]));
 }
 
+
+function completarEncabezadoExpedienteCodigo(ws) {
+    const celdaColumnaC = "C1";
+    const encabezado = ws[celdaColumnaC]?.v;
+
+    if (!tieneDato(encabezado)) {
+        ws[celdaColumnaC] = { t: "s", v: "ExpedienteCodigo" };
+    }
+}
+
 function obtenerProgramaCertificacionSeleccionado() {
     const selector = document.getElementById("programaCertificacion");
     const programa = selector.value;
@@ -166,6 +176,7 @@ document.getElementById("inputFile").addEventListener("change", async (e) => {
         const buffer = await file.arrayBuffer();
         const wb = XLSX.read(buffer, { type: "array" });
         const ws = wb.Sheets[wb.SheetNames[0]];
+        completarEncabezadoExpedienteCodigo(ws);
         const json = XLSX.utils.sheet_to_json(ws, { defval: "" });
         datosOrigen.push(...json);
     }
