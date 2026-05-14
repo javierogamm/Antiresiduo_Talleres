@@ -1,5 +1,11 @@
 # Log de cambios
 
+## v1.7
+- Se añadió la selección obligatoria del programa de certificación al cargar archivos `.xlsx`, con opciones `GFD`, `ADD` y `CAG`.
+- Se separaron los mapeos de talleres por programa para aplicar el nombre de tarea correspondiente según la selección realizada.
+- Se incorporaron advertencias en pantalla para filas con datos obligatorios faltantes y una visualización con fondo rojo para los campos vacíos.
+- Se actualizó la versión mostrada en la interfaz.
+
 ## v1.6
 - Se incorporó el mapeo completo de entradas de talleres AGG, ADD y GFD al nombre de tarea requerido para la salida CSV.
 - Se consolidó el tipo de campo tesauro de la salida como `Texto` para todos los registros generados.
