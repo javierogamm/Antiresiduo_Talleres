@@ -39,7 +39,7 @@ const crearCamposAsistencia = (nombreBase) => [
 ];
 
 const MAPEO_NOMBRE_TAREA_POR_PROGRAMA = {
-    CAG: {
+    CAAG: {
         "agg kickoff": "Certificado de asistencia a sesión online KickOff",
         "taller 01": `Certificado asistencia a taller online 01 - "Condición de usuario apoderado"`,
         "taller 02": `Certificado asistencia a taller online 02 - "Contextualización y configuración del catálogo"`,
@@ -104,7 +104,8 @@ let avisosDatosFaltantes = [];
 let avisosMapeo = [];
 
 const CAMPOS_OBLIGATORIOS_INPUT = ["Taller", "InteresadoIdentificador", "ExpedienteCodigo", "Fecha -Hora"];
-const PROGRAMAS_CERTIFICACION = Object.keys(MAPEO_INPUT_TALLERES_POR_PROGRAMA);
+const COLUMNAS_IGNORADAS_DETECCION_ERRORES = ["ValorCampoAdicional"];
+const PROGRAMAS_CERTIFICACION = ["CAAG", "GFD", "CAZ"];
 
 
 function normalizarValor(valor) {
@@ -119,18 +120,14 @@ function obtenerCamposFaltantes(row) {
     return CAMPOS_OBLIGATORIOS_INPUT.filter(campo => !tieneDato(row[campo]));
 }
 
-function preguntarProgramaCertificacion() {
-    const opciones = PROGRAMAS_CERTIFICACION.join(", ");
-    const respuesta = prompt(`Selecciona el programa de certificación (${opciones}):`);
+function obtenerProgramaCertificacionSeleccionado() {
+    const selector = document.getElementById("programaCertificacion");
+    const programa = selector.value;
 
-    if (respuesta === null) {
-        return null;
-    }
-
-    const programa = respuesta.trim().toUpperCase();
     if (!PROGRAMAS_CERTIFICACION.includes(programa)) {
-        alert(`Programa no válido. Debes escribir una de estas opciones: ${opciones}.`);
-        return preguntarProgramaCertificacion();
+        alert("Selecciona un programa de certificación antes de cargar el Excel.");
+        selector.focus();
+        return null;
     }
 
     return programa;
@@ -153,7 +150,7 @@ document.getElementById("inputFile").addEventListener("change", async (e) => {
     const files = Array.from(e.target.files);
     if (files.length === 0) return;
 
-    const programa = preguntarProgramaCertificacion();
+    const programa = obtenerProgramaCertificacionSeleccionado();
     if (!programa) {
         e.target.value = "";
         return;
@@ -223,7 +220,7 @@ function procesar() {
         const fecha = row["Fecha -Hora"];
 
         // ==================================================
-        //  MODO POR PROGRAMA (CAG / CAZ / GFD)
+        //  MODO POR PROGRAMA (CAAG / CAZ / GFD)
         // ==================================================
         if (mapeoPrograma[valorTallerNorm]) {
 
@@ -313,12 +310,15 @@ function mostrarTabla() {
 
     const tabla = document.createElement("table");
     const cols = Object.keys(datosSalida[0]);
-    const celdaFaltante = (valor) => !tieneDato(valor) ? ' class="cell-missing"' : "";
+    const columnaIgnorada = (columna) => COLUMNAS_IGNORADAS_DETECCION_ERRORES.includes(columna);
+    const filaConErrores = (row) => cols.some(columna => !columnaIgnorada(columna) && !tieneDato(row[columna]));
 
     tabla.innerHTML =
         "<tr>" + cols.map(c => `<th>${escaparHtml(c)}</th>`).join("") + "</tr>" +
         datosSalida.map(r =>
-            "<tr>" + cols.map(c => `<td${celdaFaltante(r[c])}>${escaparHtml(r[c])}</td>`).join("") + "</tr>"
+            `<tr${filaConErrores(r) ? ' class="row-missing"' : ""}>` +
+            cols.map(c => `<td>${escaparHtml(r[c])}</td>`).join("") +
+            "</tr>"
         ).join("");
 
     div.appendChild(tabla);
@@ -339,15 +339,15 @@ function mostrarAvisos() {
         partes.push(`
             <div class="alert alert-warning">
                 <strong>Advertencia:</strong> se detectaron ${avisosDatosFaltantes.length} filas con datos faltantes.
-                Los campos vacíos se muestran con fondo rojo.
+                Las filas con cualquier campo obligatorio vacío se muestran con fondo rojo.
             </div>
             <div class="table-wrapper">
                 <table>
                     <tr><th>Fila Excel</th>${columnas.map(c => `<th>${escaparHtml(c)}</th>`).join("")}</tr>
                     ${avisosDatosFaltantes.map(aviso => `
-                        <tr>
+                        <tr class="row-missing">
                             <td>${aviso.fila}</td>
-                            ${columnas.map(c => `<td${aviso.campos.includes(c) ? ' class="cell-missing"' : ""}>${escaparHtml(aviso.row[c])}</td>`).join("")}
+                            ${columnas.map(c => `<td>${escaparHtml(aviso.row[c])}</td>`).join("")}
                         </tr>
                     `).join("")}
                 </table>

@@ -1,5 +1,12 @@
 # Log de cambios
 
+## v1.9
+- Se sustituyó la petición manual del programa por un selector desplegable con las opciones `CAAG`, `GFD` y `CAZ` antes de cargar archivos `.xlsx`.
+- Se renombró el programa `CAG` a `CAAG` en el mapeo de certificaciones.
+- Se ajustó la detección visual de errores para ignorar la columna `ValorCampoAdicional`.
+- Se cambió el resaltado de errores para colorear la fila completa cuando cualquier campo relevante falla.
+- Se actualizó la versión mostrada en la interfaz.
+
 ## v1.8
 - Se actualizaron los inputs normalizados de talleres para los programas `CAG`, `CAZ` y `GFD` según la tabla consolidada.
 - Se sustituyó el programa `ADD` por `CAZ` para la selección y mapeo de certificados de Analiza.
