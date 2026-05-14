@@ -30,26 +30,57 @@ const MAPEO_CERTIFICADOS = {
     "Taller 00": `Certificado asistencia a taller online 01 - "Condición de usuario apoderado"`
 };
 
+
+const TIPO_CAMPO_TESAURO_SALIDA = "Texto";
+
+const crearCamposAsistencia = (nombreBase) => [
+    { nombre: `${nombreBase} (Sí/No)`, valor: "Sí" },
+    { nombre: `Fecha y hora de ${nombreBase}`, valor: "__FECHA__" }
+];
+
+const MAPEO_NOMBRE_TAREA_CSV = {
+    "agg kickoff": "Certificado de asistencia a sesión online KickOff",
+    "taller 01": `Certificado asistencia a taller online 01 - "Condición de usuario apoderado"`,
+    "taller 02": `Certificado asistencia a taller online 02 - "Contextualización y configuración del catálogo"`,
+    "taller 03": `Certificado asistencia a taller online 03 - "Taller de campos personalizados del tesauro"`,
+    "taller 04": `Certificado asistencia a taller online 04 - "Construcción de documentos inteligentes"`,
+    "taller 05": `Certificado asistencia a taller online 05 - "Configuración de circuitos de resolución singulares"`,
+    "taller 06": `Certificado asistencia a taller online 06 - "Configuración de circuitos de resolución plural"`,
+    "taller 07": `Certificado asistencia a taller online 07 - "Simplificación administrativa"`,
+    "taller 08": `Certificado asistencia a taller online 08 - "Módulo de diseño de Control Interno"`,
+    "taller 09": `Certificado asistencia a taller online 09 - "Circuitos de resolución con gasto"`,
+    "taller 10": `Certificado asistencia a taller online 10 - "Búsquedas avanzadas"`,
+    "taller 11": `Certificado asistencia a taller online 11 - "Analiza. Conceptos básicos y configuración"`,
+    "add kickoff": "Certificado de asistencia a sesión online KickOff Analiza",
+    "add taller01": "Certificado asistencia a Taller 01: Representación de la información y configuración básica",
+    "add taller02": "Certificado asistencia a Taller 02: Configuración de dimensiones personalizadas y operaciones con fechas",
+    "add taller03": "Certificado asistencia a Taller 03 Funciones avanzadas y variables",
+    "gfd kickoff": "Certificado de asistencia a sesión online KickOff Developers",
+    "gfd taller01": `Certificado asistencia a taller online 01 - "Autorización + Creación Expediente"`,
+    "gfd taller02": `Certificado asistencia a taller online 02 - "Gestiona Code y Tramitación reglada"`,
+    "gfd taller03": `Certificado asistencia a taller online 03 - "Carga de archivos + Gestión de expediente"`,
+    "gfd taller04": `Certificado asistencia a taller online 04 - "Terceros"`,
+    "gfd taller05": `Certificado asistencia a taller online 05 - "Registro de entradas + Listado y paginado"`,
+    "gfd taller06": `Certificado asistencia a taller online 06 - "Tramitación y registro de salida"`,
+    "gfd taller07": `Certificado asistencia a taller online 07 - "Bus de Eventos y Conector externo"`,
+    "gfd taller08": `Certificado asistencia a taller online 08 - "Operaciones externas"`
+};
+
+const crearConfiguracionTarea = (certificado) => ({
+    certificado,
+    campos: crearCamposAsistencia(certificado.replace(/^Certificado de asistencia a |^Certificado asistencia a /, ""))
+});
+
 // ======================================================================
 //  MAPEO NUEVO — GFD / ADD  (NORMALIZADO)
 // ======================================================================
 
-const MAPEO_INPUT_TALLERES = {
-    "gfd kickoff": {
-        certificado: "Certificado de asistencia a sesión online KickOff Developers",
-        campos: [
-            { nombre: "Asistencia Kick Off online Developers (Sí/No)", tipo: "Sí/No" },
-            { nombre: "Fecha y hora de asistencia a Kick off online Gestiona Developers", tipo: "Fecha" }
-        ]
-    },
-    "add kickoff": {
-        certificado: "Certificado de asistencia a sesión online KickOff Analiza",
-        campos: [
-            { nombre: "Asistencia Kick Off online Certificación Analiza (Sí/No)", tipo: "Sí/No" },
-            { nombre: "Fecha y hora de asistencia a Kick off online de \"Gestiona Analiza\"", tipo: "Fecha" }
-        ]
-    }
-};
+const MAPEO_INPUT_TALLERES = Object.fromEntries(
+    Object.entries(MAPEO_NOMBRE_TAREA_CSV).map(([input, certificado]) => [
+        input,
+        crearConfiguracionTarea(certificado)
+    ])
+);
 
 // ======================================================================
 //  VARIABLES
@@ -121,8 +152,8 @@ function procesar() {
                     NombreTarea: cfg.certificado,
                     CrearTarea: "Sí",
                     NombreCampoCastellano: campo.nombre,
-                    TipoCampoTesauro: campo.tipo,
-                    ValorCampo: campo.tipo === "Sí/No" ? "Sí" : fecha,
+                    TipoCampoTesauro: TIPO_CAMPO_TESAURO_SALIDA,
+                    ValorCampo: campo.valor === "__FECHA__" ? fecha : campo.valor,
                     ValorCampoAdicional: "",
                     NIFTercero: dni
                 });
@@ -150,7 +181,7 @@ function procesar() {
             NombreTarea: certificadoTexto,
             CrearTarea: "Sí",
             NombreCampoCastellano: tesauroTexto,
-            TipoCampoTesauro: "Fecha",
+            TipoCampoTesauro: TIPO_CAMPO_TESAURO_SALIDA,
             ValorCampo: fecha,
             ValorCampoAdicional: "",
             NIFTercero: dni
@@ -162,7 +193,7 @@ function procesar() {
             NombreTarea: certificadoTexto,
             CrearTarea: "Sí",
             NombreCampoCastellano: tesauroSN,
-            TipoCampoTesauro: "Sí/No",
+            TipoCampoTesauro: TIPO_CAMPO_TESAURO_SALIDA,
             ValorCampo: "Sí",
             ValorCampoAdicional: "",
             NIFTercero: dni
