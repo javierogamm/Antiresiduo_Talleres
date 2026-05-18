@@ -33,22 +33,6 @@ const MAPEO_CERTIFICADOS = {
 
 const TIPO_CAMPO_TESAURO_SALIDA = "Texto";
 
-const obtenerNombreBaseCampo = (texto) => {
-    const valor = (texto ?? "").toString().trim();
-    const entreComillas = valor.match(/"([^"]+)"/);
-
-    if (entreComillas) {
-        return entreComillas[1].trim();
-    }
-
-    return valor
-        .replace(/^Certificado(?: de)? asistencia a\s+/i, "")
-        .replace(/^Asistencia a?\s*/i, "")
-        .replace(/^taller(?:\s+online)?\s+\d+\s*(?:[-:]\s*)?/i, "")
-        .replace(/^sesión\s+online\s+/i, "")
-        .trim();
-};
-
 const crearCamposAsistencia = (nombreBase) => [
     { nombre: `${nombreBase} (Sí/No)`, valor: "Sí" },
     { nombre: `Fecha y hora de ${nombreBase}`, valor: "__FECHA__" }
@@ -90,7 +74,7 @@ const MAPEO_NOMBRE_TAREA_POR_PROGRAMA = {
 
 const crearConfiguracionTarea = (certificado) => ({
     certificado,
-    campos: crearCamposAsistencia(obtenerNombreBaseCampo(certificado))
+    campos: crearCamposAsistencia(certificado.replace(/^Certificado de asistencia a |^Certificado asistencia a /, ""))
 });
 
 // ======================================================================
@@ -288,7 +272,7 @@ function procesar() {
 
         if (!entradaTesauro) return;
 
-        const tesauroTexto = obtenerNombreBaseCampo(entradaTesauro[0]);
+        const tesauroTexto = entradaTesauro[0];
         const tesauroSN = tesauroTexto + " (Sí/No)";
         const certificadoTexto = MAPEO_CERTIFICADOS[valorTallerRaw];
 
