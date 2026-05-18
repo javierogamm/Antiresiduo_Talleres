@@ -1,0 +1,64 @@
+Nombres de campos para asignar en la tabla (el nombre es el nombre castellano)
+
+CAAG:
+Referencia	Nombre Castellano
+CAGKickOffAsiste	Asistencia Kick Off online Certificación CAG (Sí/No)
+CAGKickOffFechaHora	Fecha y hora de asistencia a Kick off online de "Configuración Avanzada de Gestiona"
+CAGTaller01Asiste	Asistencia taller online "Condición de usuario apoderado" (Sí/No)
+CAGTaller01FechaHora	Asistencia taller online "Condición de usuario apoderado"
+CAGTaller02Asiste	Asistencia a taller online "Contextualización y configuración del catálogo" (Sí/No)
+CAGTaller02FechaHora	Asistencia a taller online "Contextualización y configuración del catálogo"
+CAGTaller03Asiste	Asistencia a taller online "Taller de campos personalizados del tesauro" (Sí/No)
+CAGTaller03FechaHora	Asistencia a taller online "Taller de campos personalizados del tesauro"
+CAGTaller04Asiste	Asistencia taller online "Construcción de documentos inteligentes" (Sí/No)
+CAGTaller04FechaHora	Asistencia taller online "Construcción de documentos inteligentes"
+CAGTaller05Asiste	Asistencia a taller online "Configuración de circuitos de resolución singulares" (Sí/No)
+CAGTaller05FechaHora	Asistencia a taller online "Configuración de circuitos de resolución singulares"
+CAGTaller06Asiste	Asistencia a taller online "Configuración de circuitos de resolución plural" (Sí/No)
+CAGTaller06FechaHora	Asistencia a taller online "Configuración de circuitos de resolución plural"
+CAGTaller07Asiste	Asistencia a taller online "Simplificación administrativa" (Sí/No)
+CAGTaller07FechaHora	Asistencia a taller online "Simplificación administrativa"
+CAGTaller08Asiste	Asistencia a taller online "Módulo de diseño" (Sí/No)
+CAGTaller08FechaHora	Asistencia a taller online "Módulo de diseño"
+CAGTaller09Asiste	Asistencia a taller online "Circuitos de resolución con gasto" (Sí/No)
+CAGTaller09FechaHora	Asistencia a taller online "Circuitos de resolución con gasto"
+CAGTaller10Asiste	Asistencia a taller online "Búsquedas avanzadas" (Sí/No)
+CAGTaller10FechaHora	Asistencia a taller online "Búsquedas avanzadas"
+CAGTaller11Asiste	Asistencia a taller online "Analiza. Conceptos básicos y configuración" (Sí/No)
+CAGTaller11FechaHora	Asistencia a taller online "Analiza. Conceptos básicos y configuración"
+
+
+  CAZ
+  CAZKickOffAsiste	Asistencia Kick Off online Certificación Analiza (Sí/No)
+CAZKickOffFechaHora	Fecha y hora de asistencia a Kick off online de "Gestiona Analiza"
+CAZTaller01Asiste	Asiste al Taller 01 Edición de expresiones (Sí/No)
+CAZTaller01FechaHora	Asiste al Taller 01 Edición de expresiones
+CAZTaller02Asiste	Asiste al Taller 02 Edición de expresiones (Sí/No)
+CAZTaller02FechaHora	Asiste al Taller 02 Edición de expresiones
+CAZATaller03Asiste	Asiste al Taller 03 Edición de expresiones (Sí/No)
+CAZTaller03FechaHora1	Asiste al Taller 03 Edición de expresiones
+
+
+
+GFD
+
+DevelopKickOffAsiste	Asistencia Kick Off online Developers (Sí/No)
+DevelopKickOffFechaHora	Fecha y hora de asistencia a Kick off online Gestiona Developers
+DevelopTaller01Asiste	Asiste al taller online 01 (Sí/No)
+DevelopTaller01FechaHora	Asiste al taller online 01
+DevelopTaller02Asiste	Asiste al taller online 02 (Sí/No)
+DevelopTaller02FechaHora	Asiste al taller online 02
+DevelopTaller03Asiste	Asiste al taller online 03 (Sí/No)
+DevelopTaller03FechaHora	Asiste al taller online 03
+DevelopTaller04Asiste	Asiste al taller online 04 (Sí/No)
+DevelopTaller04FechaHora	Asiste al taller online 04
+DevelopTaller05Asiste	Asiste al taller online 05 (Sí/No)
+DevelopTaller05FechaHora	Asiste al taller online 05
+DevelopTaller06Asiste	Asiste al taller online 06 (Sí/No)
+DevelopTaller06FechaHora	Asiste al taller online 06
+DevelopTaller07Asiste	Asiste al taller online 07 (Sí/No)
+DevelopTaller07FechaHora	Asiste al taller online 07
+DevelopTaller08Asiste	Asiste al taller online 08 (Sí/No)
+DevelopTaller08FechaHora	Asiste al taller online 08
+
+
