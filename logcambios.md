@@ -1,5 +1,10 @@
 # Log de cambios
 
+## v1.11
+- Se incorporó el mapeo explícito de `NombreCampoCastellano` por programa y taller usando los nombres castellanos reales del archivo `NombreCampos`.
+- Se separó el nombre de tarea/certificado del nombre del campo castellano para evitar generar campos a partir del texto del certificado.
+- Se actualizó la versión mostrada en la interfaz.
+
 ## v1.10
 - Se interpreta automáticamente la primera fila de la columna C como `ExpedienteCodigo` cuando el encabezado viene vacío en el `.xlsx` de entrada.
 - Se actualizó la versión mostrada en la interfaz.
