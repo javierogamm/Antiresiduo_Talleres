@@ -1,5 +1,10 @@
 # Log de cambios
 
+## v1.11
+- Se corrigió la generación del nombre de los campos tesauro para usar solo el título del taller, sin el prefijo del certificado ni la numeración del taller.
+- Se aplicó la misma normalización a los campos de asistencia y fecha/hora generados desde los mapeos por programa y desde el modo antiguo.
+- Se actualizó la versión mostrada en la interfaz.
+
 ## v1.10
 - Se interpreta automáticamente la primera fila de la columna C como `ExpedienteCodigo` cuando el encabezado viene vacío en el `.xlsx` de entrada.
 - Se actualizó la versión mostrada en la interfaz.
