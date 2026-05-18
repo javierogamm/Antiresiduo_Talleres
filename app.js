@@ -33,10 +33,119 @@ const MAPEO_CERTIFICADOS = {
 
 const TIPO_CAMPO_TESAURO_SALIDA = "Texto";
 
-const crearCamposAsistencia = (nombreBase) => [
-    { nombre: `${nombreBase} (Sí/No)`, valor: "Sí" },
-    { nombre: `Fecha y hora de ${nombreBase}`, valor: "__FECHA__" }
+const crearCamposAsistencia = (nombreAsistencia, nombreFechaHora) => [
+    { nombre: nombreAsistencia, valor: "Sí" },
+    { nombre: nombreFechaHora, valor: "__FECHA__" }
 ];
+
+const MAPEO_CAMPOS_CASTELLANO_POR_PROGRAMA = {
+    CAAG: {
+        "agg kickoff": crearCamposAsistencia(
+            "Asistencia Kick Off online Certificación CAG (Sí/No)",
+            'Fecha y hora de asistencia a Kick off online de "Configuración Avanzada de Gestiona"'
+        ),
+        "taller 01": crearCamposAsistencia(
+            'Asistencia taller online "Condición de usuario apoderado" (Sí/No)',
+            'Asistencia taller online "Condición de usuario apoderado"'
+        ),
+        "taller 02": crearCamposAsistencia(
+            'Asistencia a taller online "Contextualización y configuración del catálogo" (Sí/No)',
+            'Asistencia a taller online "Contextualización y configuración del catálogo"'
+        ),
+        "taller 03": crearCamposAsistencia(
+            'Asistencia a taller online "Taller de campos personalizados del tesauro" (Sí/No)',
+            'Asistencia a taller online "Taller de campos personalizados del tesauro"'
+        ),
+        "taller 04": crearCamposAsistencia(
+            'Asistencia taller online "Construcción de documentos inteligentes" (Sí/No)',
+            'Asistencia taller online "Construcción de documentos inteligentes"'
+        ),
+        "taller 05": crearCamposAsistencia(
+            'Asistencia a taller online "Configuración de circuitos de resolución singulares" (Sí/No)',
+            'Asistencia a taller online "Configuración de circuitos de resolución singulares"'
+        ),
+        "taller 06": crearCamposAsistencia(
+            'Asistencia a taller online "Configuración de circuitos de resolución plural" (Sí/No)',
+            'Asistencia a taller online "Configuración de circuitos de resolución plural"'
+        ),
+        "taller 07": crearCamposAsistencia(
+            'Asistencia a taller online "Simplificación administrativa" (Sí/No)',
+            'Asistencia a taller online "Simplificación administrativa"'
+        ),
+        "taller 08": crearCamposAsistencia(
+            'Asistencia a taller online "Módulo de diseño" (Sí/No)',
+            'Asistencia a taller online "Módulo de diseño"'
+        ),
+        "taller 09": crearCamposAsistencia(
+            'Asistencia a taller online "Circuitos de resolución con gasto" (Sí/No)',
+            'Asistencia a taller online "Circuitos de resolución con gasto"'
+        ),
+        "taller 10": crearCamposAsistencia(
+            'Asistencia a taller online "Búsquedas avanzadas" (Sí/No)',
+            'Asistencia a taller online "Búsquedas avanzadas"'
+        ),
+        "taller 11": crearCamposAsistencia(
+            'Asistencia a taller online "Analiza. Conceptos básicos y configuración" (Sí/No)',
+            'Asistencia a taller online "Analiza. Conceptos básicos y configuración"'
+        )
+    },
+    CAZ: {
+        "kickoff": crearCamposAsistencia(
+            "Asistencia Kick Off online Certificación Analiza (Sí/No)",
+            'Fecha y hora de asistencia a Kick off online de "Gestiona Analiza"'
+        ),
+        "taller 01": crearCamposAsistencia(
+            "Asiste al Taller 01 Edición de expresiones (Sí/No)",
+            "Asiste al Taller 01 Edición de expresiones"
+        ),
+        "taller 02": crearCamposAsistencia(
+            "Asiste al Taller 02 Edición de expresiones (Sí/No)",
+            "Asiste al Taller 02 Edición de expresiones"
+        ),
+        "taller 03": crearCamposAsistencia(
+            "Asiste al Taller 03 Edición de expresiones (Sí/No)",
+            "Asiste al Taller 03 Edición de expresiones"
+        )
+    },
+    GFD: {
+        "kickoff": crearCamposAsistencia(
+            "Asistencia Kick Off online Developers (Sí/No)",
+            "Fecha y hora de asistencia a Kick off online Gestiona Developers"
+        ),
+        "taller 01": crearCamposAsistencia(
+            "Asiste al taller online 01 (Sí/No)",
+            "Asiste al taller online 01"
+        ),
+        "taller 02": crearCamposAsistencia(
+            "Asiste al taller online 02 (Sí/No)",
+            "Asiste al taller online 02"
+        ),
+        "taller 03": crearCamposAsistencia(
+            "Asiste al taller online 03 (Sí/No)",
+            "Asiste al taller online 03"
+        ),
+        "taller 04": crearCamposAsistencia(
+            "Asiste al taller online 04 (Sí/No)",
+            "Asiste al taller online 04"
+        ),
+        "taller 05": crearCamposAsistencia(
+            "Asiste al taller online 05 (Sí/No)",
+            "Asiste al taller online 05"
+        ),
+        "taller 06": crearCamposAsistencia(
+            "Asiste al taller online 06 (Sí/No)",
+            "Asiste al taller online 06"
+        ),
+        "taller 07": crearCamposAsistencia(
+            "Asiste al taller online 07 (Sí/No)",
+            "Asiste al taller online 07"
+        ),
+        "taller 08": crearCamposAsistencia(
+            "Asiste al taller online 08 (Sí/No)",
+            "Asiste al taller online 08"
+        )
+    }
+};
 
 const MAPEO_NOMBRE_TAREA_POR_PROGRAMA = {
     CAAG: {
@@ -72,9 +181,9 @@ const MAPEO_NOMBRE_TAREA_POR_PROGRAMA = {
     }
 };
 
-const crearConfiguracionTarea = (certificado) => ({
+const crearConfiguracionTarea = (programa, input, certificado) => ({
     certificado,
-    campos: crearCamposAsistencia(certificado.replace(/^Certificado de asistencia a |^Certificado asistencia a /, ""))
+    campos: MAPEO_CAMPOS_CASTELLANO_POR_PROGRAMA[programa][input]
 });
 
 // ======================================================================
@@ -87,7 +196,7 @@ const MAPEO_INPUT_TALLERES_POR_PROGRAMA = Object.fromEntries(
         Object.fromEntries(
             Object.entries(mapeo).map(([input, certificado]) => [
                 input,
-                crearConfiguracionTarea(certificado)
+                crearConfiguracionTarea(programa, input, certificado)
             ])
         )
     ])
